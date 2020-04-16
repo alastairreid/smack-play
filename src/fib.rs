@@ -1,6 +1,6 @@
 #[ macro_use ]
 mod smack;
-use smack ::*;
+use smack::*;
 
 fn fib(x: usize, cache: &mut Vec<u64>) {
     for i in 2..x+1 as usize {
@@ -10,7 +10,7 @@ fn fib(x: usize, cache: &mut Vec<u64>) {
 
 fn main () {
     let n = 5usize.nondet ();
-    assume !(n > 2);
+    assume!(n > 2);
 
     let mut cache = vec![0; (n+1) as u64];
     cache [0] = 0;

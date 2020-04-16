@@ -31,3 +31,4 @@ no guarantees beyond that bound.
 
 1. [Installing SMACK](docs/installation.md)
 2. [Using SMACK](docs/using.md)
+3. [SMACK issues](docs/issues.md)
