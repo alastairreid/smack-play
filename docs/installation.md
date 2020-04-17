@@ -81,6 +81,31 @@ cmake -DCMAKE_INSTALL_PREFIX=$HOME/local -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_CO
 ninja install
 ```
 
+#### Fixing contract support
+
+Note: If you plan to use SMACK's support for modular verification using contracts and
+loop invariants (see [testsuite
+examples](https://github.com/smackers/smack/tree/master/test/c/contracts),
+you will soon find that the latest version of `boogie`
+no longer supports the flag `/noinfer` that was previously needed.
+So either install a version of boogie from before 10th April 2020 or
+apply this change to SMACK and reinstall.
+
+```
+diff --git a/share/smack/top.py b/share/smack/top.py
+index 021437c0..5baca734 100755
+--- a/share/smack/top.py
++++ b/share/smack/top.py
+@@ -470,7 +470,7 @@ def verify_bpl(args):
+   elif args.verifier == 'boogie' or args.modular:
+     command = ["boogie"]
+     command += [args.bpl_file]
+-    command += ["/nologo", "/noinfer", "/doModSetAnalysis"]
++    command += ["/nologo", "/doModSetAnalysis"]
+     command += ["/timeLimit:%s" % args.time_limit]
+     command += ["/errorLimit:%s" % args.max_violations]
+     if not args.modular:
+```
 
 ### Testing install
 
