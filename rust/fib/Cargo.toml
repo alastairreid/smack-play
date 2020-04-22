@@ -1,0 +1,12 @@
+[package]
+name = "fib"
+version = "0.1.0"
+authors = ["Alastair Reid <adreid@google.com>"]
+
+[features]
+# no features by default
+default = []
+smack = []
+
+[dependencies]
+# smack = "*"
