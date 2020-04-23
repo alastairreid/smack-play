@@ -1,5 +1,9 @@
 # Using SMACK
 
+This is just a quick sketch of what it is like using
+the tool.
+Detailed examples are in <docs/examples.md>
+
 ## Verifying C
 
 There is a simple example in [SMACK's notes on

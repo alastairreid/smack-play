@@ -30,5 +30,6 @@ no guarantees beyond that bound.
 ## Table of Contents
 
 1. [Installing SMACK](docs/installation.md)
-2. [Using SMACK](docs/using.md)
-3. [SMACK issues](docs/issues.md)
+2. [Using SMACK](docs/using.md) – quick sketch/demo
+3. [SMACK examples](docs/examples.md) – detailed examples
+4. [SMACK issues](docs/issues.md) - problems I ran into
