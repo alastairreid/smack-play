@@ -62,6 +62,17 @@ dotnet tool install --global boogie
 dotnet tool install --global Corral
 ```
 
+### Fixing LLDB
+
+On OSX, you need to code-sign lldb so that it can be used
+by following the instructions [on this
+page](https://opensource.apple.com/source/lldb/lldb-69/docs/code-signing.txt)
+and then executing this command.  (You might want to do the same for gdb as well)
+
+```
+codesign -s lldb-codesign `which lldb`
+```
+
 
 ### Building SMACK
 
@@ -82,6 +93,8 @@ ninja install
 ```
 
 #### Fixing contract support
+
+(This fixes [issue #557](https://github.com/smackers/smack/issues/557).)
 
 Note: If you plan to use SMACK's support for modular verification using contracts and
 loop invariants (see [testsuite
@@ -105,6 +118,40 @@ index 021437c0..5baca734 100755
      command += ["/timeLimit:%s" % args.time_limit]
      command += ["/errorLimit:%s" % args.max_violations]
      if not args.modular:
+```
+
+#### Fixing replay support
+
+(This is reported as [issue #570](https://github.com/smackers/smack/issues/570).)
+
+Apply the following hack to SMACK.
+(I believe that the better fix would be to just change 'message' to 'msg'
+but that was not enough on my machine.)
+
+```
+diff --git a/share/smack/replay.py b/share/smack/replay.py
+index 8064eafd..ae59f005 100644
+--- a/share/smack/replay.py
++++ b/share/smack/replay.py
+@@ -41,7 +41,7 @@ def replay_error_trace(verifier_output, args):
+       print("Error-trace replay failed.")
+
+   except Exception as err:
+-    print("Error-trace replay caught", err.message)
++    print("Error-trace replay caught", err)
+
+   return False
+
+@@ -51,7 +51,8 @@ def detect_missing_definitions(bc_file):
+   try:
+     try_command(['clang', bc_file])
+   except Exception as err:
+-    for line in err.message.split("\n"):
++    msg = repr(err).replace("\\n","\n")
++    for line in msg.split("\n"):
+       m = re.search(r'\"_(.*)\", referenced from:', line) or re.search(r'undefined reference to `(.*)\'', line)
+       if m:
+         missing.append(m.group(1))
 ```
 
 ### Testing install

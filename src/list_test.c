@@ -9,7 +9,7 @@
 #include "list.h"
 #include "smack.h"
 
-void test_list()
+int main()
 {
 	unsigned n = __VERIFIER_nondet_unsigned_int();
 	struct node *l = 0;
@@ -25,6 +25,7 @@ void test_list()
 	}
 
 	assert(l == 0);
+	return 0;
 }
 
 /****************************************************************

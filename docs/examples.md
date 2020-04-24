@@ -87,8 +87,23 @@ An obvious thing to try would be to suppress calls to "cons" and
 This tool seems so obvious that it must already exist?
 
 There is a `--replay` option to "enable reply of error trace with test
-harness".  Perhaps that is the answer but I had problems using it.
+harness".
+It generates a file `replay-exe`.
 
+```
+$ smack list.c list_test.c --unroll 4 --replay
+  SMACK program verifier version 2.4.1
+  local/share/smack/lib/smack.c(45,1): This assertion can fail
+  Execution trace:
+    [omitted]
+  Attempting to replay error trace.
+  Generated replay harness: replay-harness.c
+  Generated replay executable: replay-exe
+  Error-trace replay successful.
+  SMACK found an error.
+$ ./replay-exe
+  error reached!
+```
 
 ### Modular verification
 
